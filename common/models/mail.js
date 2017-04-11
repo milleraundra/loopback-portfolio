@@ -3,6 +3,8 @@
 module.exports = function(Mail) {
 
   Mail.contact = function(sender, email, subject, body, cb) {
+    //TODO use nodemailer to send emails to yourself
+    //TODO figure out why you cant use contact.js
     cb(null, "TADA!");
   };
 
