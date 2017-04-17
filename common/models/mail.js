@@ -1,11 +1,25 @@
 'use strict';
 
+let nodemailer = require('nodemailer');
+
 module.exports = function(Mail) {
 
   Mail.contact = function(sender, email, subject, body, cb) {
-    //TODO use nodemailer to send emails to yourself
-    //TODO figure out why you cant use portfolio-contact.js
-    cb(null, "TADA!");
+    let transporter = nodemailer.createTransport({
+      sendmail: true,
+      newline: 'unix',
+      path: '/usr/sbin/sendmail'
+    });
+
+    transporter.sendMail({
+      from: email,
+      to: 'miller.aundra@gmail.com',
+      subject: subject,
+      text: body
+    }, (err, info) => {
+      (err) ? cb(err, null) : cb(null, info);
+  });
+
   };
 
   Mail.remoteMethod('contact', {
